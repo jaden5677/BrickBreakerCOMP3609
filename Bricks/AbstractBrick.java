@@ -24,10 +24,14 @@ public abstract class AbstractBrick extends JPanel implements BrickInterface {
         this.width = width;
         this.height = height;
         this.panel = panel;
+        this.destroyed = false;
+        this.hasItem = false;
     }
     public AbstractBrick(int x, int y, int width, int height, JPanel panel, ItemInterface item) {
         this(x, y, width, height, panel);
         this.item = item;
+        this.hasItem = true;
+        this.destroyed = false;
         this.hasItem = true;
     }
     
