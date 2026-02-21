@@ -7,16 +7,17 @@ import javax.swing.JPanel;
 import Items.ItemInterface;
 
 public abstract class AbstractBrick extends JPanel implements BrickInterface {
-    private JPanel panel;
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-    private boolean destroyed;
-    private Color color;
-    private ItemInterface item; // Optional item that can be dropped when the brick is destroyed
-    private boolean hasItem; // Flag to indicate if the brick has an item
-    private int pointValue;
+    protected JPanel panel;
+    protected int x;
+    protected int y;
+    protected int width;
+    protected int height;
+    protected boolean destroyed;
+    public Color color;
+    protected ItemInterface item; // Optional item that can be dropped when the brick is destroyed
+    protected boolean hasItem; // Flag to indicate if the brick has an item
+    protected int pointValue;
+    protected int hitsRequired; // Number of hits required to destroy the brick (for hard bricks)
     public AbstractBrick(int x, int y, int width, int height, JPanel panel) {
         this.x = x;
         this.y = y;
@@ -45,8 +46,8 @@ public abstract class AbstractBrick extends JPanel implements BrickInterface {
     public boolean hasItem() {
         return hasItem;
     }
-    public void onDestroy() {
-        // This method can be overridden by subclasses to perform specific actions when the brick is destroyed
+    public int onDestroy() {
+        return pointValue;
     }
     public int getPointValue() {
         return pointValue;
@@ -59,8 +60,8 @@ public abstract class AbstractBrick extends JPanel implements BrickInterface {
         g.dispose();
     }
     public void destroy() {
+        // Default implementation for destroying a brick
         destroyed = true;
-        erase();
     }
     public boolean isDestroyed() {
         return destroyed;
