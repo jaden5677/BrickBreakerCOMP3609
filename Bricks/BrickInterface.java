@@ -1,5 +1,5 @@
 package Bricks;
-import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.awt.Graphics;
 public interface BrickInterface {
     void draw(Graphics g);
@@ -11,6 +11,6 @@ public interface BrickInterface {
     int onDestroy();
     int getPointValue();
     void setItem(Items.ItemInterface item);
-    Rectangle getBounds();
+    Rectangle2D getBrickBounds();
     boolean hasItem();
 }

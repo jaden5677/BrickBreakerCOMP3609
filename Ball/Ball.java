@@ -53,19 +53,15 @@ public class Ball extends Thread{
     }
 }
 
-    public void draw() {
-        Graphics g = panel.getGraphics();
-        Graphics2D g2d = (Graphics2D) g;
-        ball = new Ellipse2D.Double(x, y, diameter, diameter);
-
-        if (footballImage != null) {
-            g2d.drawImage(footballImage, x, y, diameter, diameter, null);
-        } else {
-            // Fallback to red circle if image failed to load
-            g2d.setColor(Color.RED);
-            g2d.fill(ball);
-        }
-        g.dispose();
+    public void draw(Graphics g) {
+    Graphics2D g2d = (Graphics2D) g;
+    ball = new Ellipse2D.Double(x, y, diameter, diameter);
+    if (footballImage != null) {
+        g2d.drawImage(footballImage, x, y, diameter, diameter, null);
+    } else {
+        g2d.setColor(Color.RED);
+        g2d.fill(ball);
+    }
     }
 
     public void setVelocity(int xVelocity, int yVelocity) {
@@ -102,9 +98,9 @@ public class Ball extends Thread{
         yVelocity = -yVelocity;
     }
     }
-    public Ellipse2D getBounds(){
-        return ball;
-    }
+    public Ellipse2D getBounds() {
+    return new Ellipse2D.Double(x, y, diameter, diameter);
+}
     public void run() {
         while (true) {
             move();

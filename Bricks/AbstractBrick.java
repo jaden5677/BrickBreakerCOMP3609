@@ -2,12 +2,11 @@ package Bricks;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 import Items.ItemInterface;
 
-public abstract class AbstractBrick extends JPanel implements BrickInterface {
+public abstract class AbstractBrick implements BrickInterface {
     protected JPanel panel;
     protected int x;
     protected int y;
@@ -91,9 +90,8 @@ public abstract class AbstractBrick extends JPanel implements BrickInterface {
         
         y += height; // Move the brick down by one brick height
     }
-    @Override
-    public Rectangle getBounds(){
-        return new Rectangle(x,y,width,height);
+    public Rectangle2D getBrickBounds() {
+    return new Rectangle2D.Double(x, y, width, height);
     }
 
     

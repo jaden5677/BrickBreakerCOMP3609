@@ -21,16 +21,17 @@ public class MainWindow extends JFrame implements KeyListener {
         mainPanel = new JPanel(cardLayout);
 
         startMenu = new StartMenu();
-        gamePanel = new MainGamePanel(mainPanel);
+        gamePanel = new MainGamePanel();
+        gamePanel.addKeyListener(this);
+        gamePanel.setFocusable(true);
 
         mainPanel.add(startMenu, "StartMenu");
         mainPanel.add(gamePanel, "GamePanel");
         add(mainPanel);
 
-        // Show start menu first
         cardLayout.show(mainPanel, "StartMenu");
 
-        // Start button transitions to game
+    
         startMenu.getStartButton().addActionListener(e -> {
             gamePanel.generateEntities();
             cardLayout.show(mainPanel, "GamePanel");
@@ -41,20 +42,20 @@ public class MainWindow extends JFrame implements KeyListener {
 
         startMenu.getExitButton().addActionListener(e -> System.exit(0));
 
-        // Game loop timer
-        timer = new Timer(16, e -> { // ~60fps
-            if (!gamePanel.isGameOver() && !gamePanel.isGameWon()) {
-                gamePanel.checkCollisions();
-                gamePanel.repaint();
-            } else {
-                timer.stop();
-                showEndScreen();
-            }
-        });
+        timer = new Timer(16, e -> {
+        if (!gamePanel.isGameOver() && !gamePanel.isGameWon()) {
+            gamePanel.update();
+        } else {
+            timer.stop();
+            showEndScreen();
+        }
+    });
 
+        
+        setVisible(true);
         addKeyListener(this);
         setFocusable(true);
-        setVisible(true);
+        requestFocusInWindow();
     }
 
     private void showEndScreen() {
@@ -79,14 +80,22 @@ public class MainWindow extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            gamePanel.movePlatform(-20);
-        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            gamePanel.movePlatform(20);
-        } else if (e.getKeyCode() == KeyEvent.VK_P) {
-            gamePanel.togglePause();
-        }
-    }
+        System.out.println("Key pressed: " + e.getKeyCode()); // add this
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_LEFT:
+                gamePanel.movePlatform(-20);
+                break;
+            case KeyEvent.VK_RIGHT:
+                gamePanel.movePlatform(20);
+                break;
+            case KeyEvent.VK_P:
+                gamePanel.togglePause();
+                break;
+            case KeyEvent.VK_ESCAPE:
+                showEndScreen();
+                break;
+        }   
+}
 
     @Override public void keyTyped(KeyEvent e) {}
     @Override public void keyReleased(KeyEvent e) {}

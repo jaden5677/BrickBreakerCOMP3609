@@ -38,26 +38,22 @@ public class Platform {
         g.dispose();
     }
 
-    public void move(int direction) {
-        int pW = panel.getWidth();
-
-      if (!panel.isVisible ()) {return;} else this.erase();
-
-      if ((direction == 1) && (x>=10)) {	// move left
-          x = x - moveSpeed;
-      }
-      else
-      if ((direction == 2) && (x<=pW)) {  	// move right
-          x = x + moveSpeed;
-      }
-
+    public void move(int dx) {
+    int panelWidth = panel.getWidth();
+    int newX = x + dx;
+    if (newX >= 0 && newX + width <= panelWidth) {
+        x = newX;
+    }
+    }
+    public int getY(){
+        return y;
     }
 
     public void setMoveSpeed(int speed) {
         this.moveSpeed = speed;
     }
-    public Rectangle2D.Double getBounds() {
-        return platformRect;
-    }
+    public Rectangle2D getBounds() {
+    return new Rectangle2D.Double(x, y, width, height);
+}
     
 }
