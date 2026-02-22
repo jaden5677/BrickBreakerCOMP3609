@@ -80,7 +80,6 @@ public class MainWindow extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("Key pressed: " + e.getKeyCode()); // add this
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
                 gamePanel.movePlatform(-20);

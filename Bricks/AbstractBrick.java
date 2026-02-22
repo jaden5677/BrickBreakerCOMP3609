@@ -14,11 +14,10 @@ public abstract class AbstractBrick implements BrickInterface {
     protected int height;
     protected boolean destroyed;
     public Color color;
-    protected ItemInterface item; // Optional item that can be dropped when the brick is destroyed
-    protected boolean hasItem; // Flag to indicate if the brick has an item
+    protected ItemInterface item;
+    protected boolean hasItem; 
     protected int pointValue;
-    protected int hitsRequired; // Number of hits required to destroy the brick (for hard bricks)
-    private Rectangle2D.Double brick;
+    protected int hitsRequired; 
     public AbstractBrick(int x, int y, int width, int height, JPanel panel) {
         this.x = x;
         this.y = y;
@@ -68,7 +67,7 @@ public abstract class AbstractBrick implements BrickInterface {
         g.dispose();
     }
     public void destroy() {
-        // Default implementation for destroying a brick
+
         destroyed = true;
 
     }
@@ -76,7 +75,6 @@ public abstract class AbstractBrick implements BrickInterface {
         return destroyed;
     }
     public void move() {
-        // Bricks move downwards by one brick height  each time move is called
         if(!destroyed) {
             erase();
         }
@@ -84,11 +82,10 @@ public abstract class AbstractBrick implements BrickInterface {
         if (y + height < panelHeight) {
             y += height;
         } else {
-            // If the brick reaches the bottom of the panel, it is considered destroyed
             destroy();
         }
         
-        y += height; // Move the brick down by one brick height
+        y += height;
     }
     public Rectangle2D getBrickBounds() {
     return new Rectangle2D.Double(x, y, width, height);

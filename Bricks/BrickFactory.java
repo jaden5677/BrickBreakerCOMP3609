@@ -22,7 +22,7 @@ public class BrickFactory {
         int value = rand.nextInt(6);
         Random itemChance = new Random();
         BrickInterface brick;
-        int itemValue = itemChance.nextInt(4); // 1 in 10 chance of an item dropping
+        int itemValue = itemChance.nextInt(4); // 1 in 4 chance of an item dropping
         if((value >0) && (value<3)){
             brick = createBrick(types[0], x, y, width, height, panel);
         } else if((value >=3) && (value<5)){

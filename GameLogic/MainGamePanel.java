@@ -1,6 +1,5 @@
 package GameLogic;
 import Bricks.*;
-import Items.*;
 import Ball.Ball;
 import Platform.Platform;
 import java.util.Vector;
@@ -40,7 +39,6 @@ public class MainGamePanel extends JPanel {
     public void generateEntities() {
         int w = getWidth();
         int h = getHeight();
-        System.out.println("Panel size: " + w + "x" + h); // debug check
         platform = new Platform(w / 2 - 50, h - 50, 100, 20, this);
         initializeBricks();
         balls.clear();
@@ -69,11 +67,6 @@ public class MainGamePanel extends JPanel {
         Vector<Ball> toRemove = new Vector<>();
         for (Ball ball : balls) {
             Ellipse2D ballBounds = ball.getBounds();
-
-            // Platform collision
-        System.out.println("Platform: " + platform);
-        System.out.println("Platform bounds: " + (platform != null ? platform.getBounds() : "platform is NULL"));
-        System.out.println("Ball bounds: " + ballBounds);
             if (ballBounds.intersects(platform.getBounds())) {
                 ball.setVelocity(ball.getXVelocity(), -Math.abs(ball.getYVelocity()));
             }
@@ -88,16 +81,13 @@ public class MainGamePanel extends JPanel {
                     }
                 }
             }
-
-            // Ball out of bounds
             if (ball.getY() > platform.getY()) {
                 toRemove.add(ball);
                 lives--;
-                System.out.println("Life lost! Lives remaining: " + lives); // debug
                 if (lives <= 0) {
                 isGameOver = true;
              }
-}
+            }
         }
         balls.removeAll(toRemove);
 
@@ -157,7 +147,6 @@ public class MainGamePanel extends JPanel {
         }
     }
     private void drawPauseOverlay(Graphics g) {
-    // Semi-transparent dark overlay
     Graphics2D g2d = (Graphics2D) g;
     g2d.setColor(new Color(0, 0, 0, 150));
     g2d.fillRect(0, 0, getWidth(), getHeight());
