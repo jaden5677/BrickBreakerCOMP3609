@@ -2,6 +2,7 @@ package Bricks;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 import Items.ItemInterface;
@@ -18,6 +19,7 @@ public abstract class AbstractBrick extends JPanel implements BrickInterface {
     protected boolean hasItem; // Flag to indicate if the brick has an item
     protected int pointValue;
     protected int hitsRequired; // Number of hits required to destroy the brick (for hard bricks)
+    private Rectangle2D.Double brick;
     public AbstractBrick(int x, int y, int width, int height, JPanel panel) {
         this.x = x;
         this.y = y;
@@ -36,14 +38,17 @@ public abstract class AbstractBrick extends JPanel implements BrickInterface {
     }
     
     public void draw(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.GREEN);
-        g2d.fill(new Rectangle2D.Double(x, y, width, height));
-    }
+    Graphics2D g2d = (Graphics2D) g;
+    g2d.setColor(color);
+    g2d.fill(new Rectangle2D.Double(x, y, width, height));
+}
     public void setColor(Color color) {
         this.color = color;
     }
-    
+    public void setItem(ItemInterface item) {
+        this.item = item;
+        this.hasItem = true;
+    }
     public ItemInterface getItem() {
         return item;
     }
@@ -66,6 +71,7 @@ public abstract class AbstractBrick extends JPanel implements BrickInterface {
     public void destroy() {
         // Default implementation for destroying a brick
         destroyed = true;
+
     }
     public boolean isDestroyed() {
         return destroyed;
@@ -85,5 +91,10 @@ public abstract class AbstractBrick extends JPanel implements BrickInterface {
         
         y += height; // Move the brick down by one brick height
     }
+    @Override
+    public Rectangle getBounds(){
+        return new Rectangle(x,y,width,height);
+    }
+
     
 }
